@@ -7,8 +7,9 @@ import (
 	//"net/http"
 
 	//	"strings"
+	//"github.com/golang/protobuf/proto"
+	//corev1 "k8s.io/api/core/v1"
 
-	//	corev1 "k8s.io/api/core/v1"
 	//metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/runtime/inject"
@@ -25,10 +26,10 @@ type ResouceValidater struct {
 var _ admission.Handler = &ResouceValidater{}
 
 func (a *ResouceValidater) Handle(ctx context.Context, req types.Request) types.Response {
-	log.Printf("Validating Webhook Handle Request %s/ %s/ %s/\n", req.AdmissionRequest.Namespace, req.AdmissionRequest.Kind, req.AdmissionRequest.Operation)
-	//resourceObj := &metav1.ObjectMeta{}
+	log.Printf("Validating Webhook Handle Request Namespace=%s/ Kind=%s/ Operation=%s/\n", req.AdmissionRequest.Namespace, req.AdmissionRequest.Kind, req.AdmissionRequest.Operation)
+	//resourceObj := &corev1.Pod{}
 	//err := a.decoder.Decode(req, resourceObj)
-
+	//req.AdmissionRequest.Object
 	//if err != nil {
 	//	return admission.ErrorResponse(http.StatusBadRequest, err)
 	//}
@@ -37,6 +38,9 @@ func (a *ResouceValidater) Handle(ctx context.Context, req types.Request) types.
 	//	return admission.ValidationResponse(false, "appid is not allowed null")
 	//}
 
+	log.Printf("Validating Webhook Handle Request Raw=%s/ \n", req.AdmissionRequest.Object.Raw)
+	log.Printf("Validating Webhook Handle Request Object=%s/ \n", req.AdmissionRequest.Object.Object)
+	//proto.NewBuffer(req.AdmissionRequest.Object.Raw).Unmarshal()
 	return admission.ValidationResponse(true, "ok")
 }
 

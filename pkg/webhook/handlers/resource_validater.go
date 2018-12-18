@@ -47,7 +47,7 @@ func (a *ResouceValidater) Handle(ctx context.Context, req types.Request) types.
 			appId := labels["appid"]
 			changeNo := labels["changeno"]
 			if appId == "" || changeNo == "" {
-				return admission.ValidationResponse(true, "ok")
+				return admission.ValidationResponse(false, "appid and changeno is now allowed null when prd deploy")
 			}
 
 		}
